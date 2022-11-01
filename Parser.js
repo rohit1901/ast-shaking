@@ -12,24 +12,34 @@ class Parser {
         this.followImportSources = this.followImportSources.bind(this);
     }
 
-    // or trigger the extractImports fn
-    get Imports() {
+    /**
+     * a getter for the imports
+     * @returns {*[]}
+     * @constructor
+     */
+    get getImports() {
         return this.importedVals.length ? this.importedVals : this.extractImports(this.module);
     }
 
-    // traverse the tree of module
-    // look for ImportDeclaration type
-
-    // pull in the path and parse its content
+    /**
+     * traverse the tree of module
+     * look for ImportDeclaration type
+     * pull in the path and parse its content
+     * @param relPath
+     * @returns {*}
+     */
     parseModule(relPath) {
         const codeBuffer = fs.readFileSync(__dirname + relPath);
         return esprima.parseModule(codeBuffer.toString());
     }
 
-    // define the function to follow import sources
-    // either push the module name into the Modules Map
-
-    // follow imports recursively
+    /**
+     * define the function to follow import sources
+     * either push the module name into the Modules Map
+     * follow imports recursively
+     * @param module
+     * @returns {*}
+     */
     extractImports(module) {
         const extractedImports = this.traverseSyntaxTree({
             AST: this.parseModule(`/modules/${module}.js`),
@@ -47,9 +57,9 @@ class Parser {
         return this.importedVals;
     }
 
-    // traverse the AST and do whatever
-
-    // or don't do anything
+    /**
+     * traverse the AST and do whatever or don't do anything
+     */
     followImportSources({source}) {
         const followModule = source.value.replace('./', '');
         followModule.length ? (() => {

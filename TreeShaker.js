@@ -6,17 +6,24 @@ class TreeShaker {
         this.modules = TreeShaker.shake(modulesSet, Imports);
     }
 
-    // make the original modules accessible
-    get Unshaked() {
+    /**
+     * a getter for the unshaken modules
+     * @returns {*[]}
+     * @constructor
+     */
+    get getUnshakenModules() {
         return this.unshaked;
     }
 
-    // and the optimized modules are of course accessible as well
-    get Modules() {
+    /**
+     * a getter for the optimized modules
+     * @returns {*[]}
+     * @constructor
+     */
+    get getModules() {
         return this.modules;
     }
 
-    // do static because... well 🤷🏻‍
     static shake(modules, importedVals) {
         // get all the values from the module map defined in Parser
         // and turn them into an array

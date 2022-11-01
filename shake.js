@@ -4,12 +4,12 @@ const {TreeShaker} = require('./TreeShaker');
 
 const treeShaker = new TreeShaker(new Parser('module1'));
 // create one big bundle
-const moduleStringOptimized = treeShaker.Modules
+const moduleStringOptimized = treeShaker.getModules
     .map(m => escodegen.generate(m))
     .join('');
 // another bundle for comparison
 // NOTE: the module prop has to be specified on the module object
-const moduleStringUnshaked = treeShaker.Unshaked
+const moduleStringUnshaked = treeShaker.getUnshakenModules
     .map(u => escodegen.generate(u.module))
     .join('');
 // we will compare the two bundles
